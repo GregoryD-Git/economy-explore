@@ -12,10 +12,41 @@ import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
 
-print('this is a different change')
+'''
+Stock data presentation
+    - Looking at the closing price of the S&P500 over the course of a presidency 
+    can help understand how the market is affected by presidential policy
+    - The S&P500 is considered an index market for the general state of the 
+    market as a whole
+    - Tracking the markets closing costs over time, indexed to inauguration day
+    can help to understand how the marker changes over time
+    
+    *analysis ideas???
+    - Determine how presidential political affiliation impacts overall market
+    progress: 
+        NULL HYPOTHESES
+        *H0-political affiliation does not predict overall change in market price
+        from beginning to end of a presidential term
+        *H1-politial affilitation does not predict the overall rate of change in 
+        market price over the course of a presidency
+'''
+# Specify how many days out from inauguration we want to see stock data
+days_out = 100 # number of work days in a year
 
-days_out = 100
+today = datetime.today()
+today_str = today.strftime('%Y-%m-%d')
 
+term_names =['trump1','biden','trump2']
+start_terms = ['2017-01-20',
+               '2021-01-20',
+               '2025-01-20']
+end_terms = ['2021-01-20',
+             '2025-01-20',
+             today_str]
+
+assets = ['^GSPC']
+
+# Specify color pallate suitable for people with colorblindness
 colorblind_palette = {
     "Blue": "#377eb8",
     "Orange": "#ff7f00",
@@ -31,22 +62,6 @@ colorblind_palette = {
     "Light Red": "#fb9a99",
     "Dark Red": "#e31a1c"
 }
-
-today = datetime.today()
-today_str = today.strftime('%Y-%m-%d')
-
-term_names =['trump1','biden','trump2']
-start_terms = ['2017-01-20',
-               '2021-01-20',
-               '2025-01-20']
-end_terms = ['2021-01-20',
-             '2025-01-20',
-             today_str]
-
-assets = ['MSFT',
-          'DIS',
-          '^GSPC'
-          ]
 
 # function to plat data
 def plot_column(ax, x, y, xlabel, ylabel, line_color, legend_label):
