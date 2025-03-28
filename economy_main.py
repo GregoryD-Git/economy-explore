@@ -52,7 +52,8 @@ def plot_column(ax, x, y, xlabel, ylabel, line_color, legend_label):
     ax.grid(True)
 
 def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label, y_label):
-    
+    ###########################################################################
+    # Extract data for the S&P500
     asset_dict = extract_asset.get_asset(days_out, 
                            assets, 
                            term_names, 
@@ -66,7 +67,7 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
     color_list = ['Light Red','Blue','Red']
     
     # Create a figure and axes
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots((1,2), figsize=(10, 6))
     
     for i, term_name in enumerate(term_names):
         legend_label = term_name
@@ -77,8 +78,12 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
         x_days = x_trim.dt.days.astype(str) + ' days'
         x = [day for day in range(0,len(x_days))]
         y = asset_df[asset_df['Term_name'] == term_names[i]][f'{asset} Indexed'].values
-        plot_column(ax, x, y[:x[-1]+1], x_label, y_label, color_list[i], legend_label)
+        plot_column(ax[0, 0], x, y[:x[-1]+1], x_label, y_label, color_list[i], legend_label)
     plt.show()
+    
+    ###########################################################################
+    # Extract data for CPI-U
+    
     
 if __name__ == "__main__":
     # set input parameters

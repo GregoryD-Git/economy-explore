@@ -4,9 +4,9 @@ import requests
 import json
 import prettytable
 
-def get_CPI():
+def get_CPI(start_year, end_year):
     headers = {'Content-type': 'application/json'}
-    data = json.dumps({"seriesid": ['CUUR0000SA0','SUUR0000SA0'],"startyear":"2011", "endyear":"2014"})
+    data = json.dumps({"seriesid": ['CUUR0000SA0','SUUR0000SA0'],"startyear":start_year, "endyear":end_year})
     p = requests.post('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
     json_data = json.loads(p.text)
     for series in json_data['Results']['series']:
@@ -25,6 +25,8 @@ def get_CPI():
         output = open(seriesId + '.txt','w')
         output.write (x.get_string())
         output.close()
+        
+    
 
 if __name__ == "__main__":
     get_CPI()
