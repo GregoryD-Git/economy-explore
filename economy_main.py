@@ -93,7 +93,7 @@ if __name__ == "__main__":
     assets = ['^GSPC']
     x_label = 'Work Days Since Innauguration'
     y_label = '% Indexed to Inauguration Day'
-    days_out = 250
+    days_out = 100
     
     # call main function
     economy_track(days_out, 
