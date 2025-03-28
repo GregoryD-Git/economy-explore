@@ -84,6 +84,8 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
     ###########################################################################
     # Extract data for CPI-U
     
+    get_CPI_Udata.get_CPI(start_terms, end_terms)
+    
     
 if __name__ == "__main__":
     # set input parameters
@@ -99,7 +101,7 @@ if __name__ == "__main__":
     assets = ['^GSPC']
     x_label = 'Work Days Since Innauguration'
     y_label = '% Indexed to Inauguration Day'
-    days_out = 100
+    days_out = 300
     
     # call main function
     economy_track(days_out, 
