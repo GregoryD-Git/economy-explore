@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime as dt
 import extract_asset
+import get_CPI_Udata 
 
 # today = dt.today()
 # today_str = today.strftime('%Y-%m-%d')
