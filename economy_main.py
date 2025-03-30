@@ -11,19 +11,6 @@ from datetime import datetime as dt
 import extract_asset
 import get_CPI_Udata 
 
-# today = dt.today()
-# today_str = today.strftime('%Y-%m-%d')
-# term_names =['trump1','biden','trump2']
-# start_terms = ['2017-01-20',
-#                '2021-01-20',
-#                '2025-01-20']
-# end_terms = ['2021-01-20',
-#              '2025-01-20',
-#              today_str]
-# assets = ['^GSPC']
-# x_label = 'Work Days Since Innauguration'
-# y_label = '% Indexed to Inauguration Day'
-
 # function to plat data
 def plot_column(ax, x, y, xlabel, ylabel, line_color, legend_label):
     # Specify color pallate suitable for people with colorblindness
@@ -67,7 +54,7 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
     color_list = ['Light Red','Blue','Red']
     
     # Create a figure and axes
-    fig, ax = plt.subplots((1,2), figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
     
     for i, term_name in enumerate(term_names):
         legend_label = term_name
@@ -78,11 +65,15 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
         x_days = x_trim.dt.days.astype(str) + ' days'
         x = [day for day in range(0,len(x_days))]
         y = asset_df[asset_df['Term_name'] == term_names[i]][f'{asset} Indexed'].values
-        plot_column(ax[0, 0], x, y[:x[-1]+1], x_label, y_label, color_list[i], legend_label)
+        plot_column(ax, x, y[:x[-1]+1], x_label, y_label, color_list[i], legend_label)
+    
+    plt.savefig("economy-explore_asset.png")  # Saves the figure to a .png file
     plt.show()
     
     ###########################################################################
     # Extract data for CPI-U
+    
+    get_CPI_Udata.get_CPI(start_terms, end_terms)
     
     
 if __name__ == "__main__":
