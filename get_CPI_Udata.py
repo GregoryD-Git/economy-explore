@@ -4,6 +4,12 @@ import requests
 import json
 import prettytable
 
+# month list
+months = ['January','February','March',
+             'April','May','June','July',
+             'August','September','October',
+             'November','December']
+
 def get_CPI(start_terms, end_terms):
     for i, start_date in enumerate(start_terms):
         start_year = start_date.split('-')[0]
@@ -18,14 +24,15 @@ def get_CPI(start_terms, end_terms):
             seriesId = series['seriesID']
             for item in series['data']:
                 year = item['year']
-                period = item['period']
+                period = item['period'] # month
+                month = months[int(period[1:]) - 1]
                 value = item['value']
                 footnotes=""
                 for footnote in item['footnotes']:
                     if footnote:
                         footnotes = footnotes + footnote['text'] + ','
                 if 'M01' <= period <= 'M12':
-                    x.add_row([seriesId,year,period,value,footnotes[0:-1]])
+                    x.add_row([seriesId,year,month,value,footnotes[0:-1]])
             output = open(seriesId + '.txt','w')
             output.write (x.get_string())
             output.close()
