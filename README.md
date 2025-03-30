@@ -1,23 +1,21 @@
-![Markdown Logo](https://markdown-here.com/img/icon256.png)
+<h1 style="display: flex; align-items: center;">
+  <img src=https://markdown-here.com/img/icon256.png alt="Description" width="50" height="50" style="margin-left: 10px;">
+  Economy-Explore
+</h1>
 
-# economy-explore
 A practice in obtaining data from the web and creating informative visuals to better understand how presidencies impact the economy
 
-> **KEY MODULES AND PROCESSES USED**
-'''
+**KEY METHODS, MODULES, AND PROCESSES USED**
+> 1. *Data extraction*
 > - yfinance
-> - pandas
-> - nympy
+> 2. *Data manipulation*
+> - pandas, numpy
+> 3. *Datetime object use*
 > - datetime
+> 4. *Data visualization*
 > - matplotlib.pyplot
-'''
 
-**KEY METHODS USED**
-> - Data extraction and manipulation
-> - Data visualization
-> - Data communication
-
-There are (two) reports demonstrating key economic factors that demonstrate the "health of the economy", over the course of the repspective presidential terms. 
+**DESCRIPTION:** Here, (two) reports are presented, demonstrating key economic factors that demonstrate the "health of the economy", over the course of the respective presidential terms. 
 
 First, is the S&P500 
 ## S&P500 data presentation
@@ -30,6 +28,9 @@ can help to understand how the market changes over time
 
 To use the S&P500, the python modul yfinance is used
 'import yfinance as yf'
+
+### The data is presented here
+![Sample Plot](economy-explore_asset.png)
 
 ---
 ***analysis ideas***
