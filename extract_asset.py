@@ -19,7 +19,7 @@ Stock data presentation
     - The S&P500 is considered an index market for the general state of the 
     market as a whole
     - Tracking the markets closing costs over time, indexed to inauguration day
-    can help to understand how the marker changes over time
+    can help to understand how the market changes over time
     
     *analysis ideas???
     - Determine how presidential political affiliation impacts overall market
