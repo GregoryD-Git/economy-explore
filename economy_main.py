@@ -67,7 +67,7 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
         y = asset_df[asset_df['Term_name'] == term_names[i]][f'{asset} Indexed'].values
         plot_column(ax, x, y[:x[-1]+1], x_label, y_label, color_list[i], legend_label)
     
-    plt.savefig("economy-explore_asset.png")  # Saves the figure to a .png file
+    plt.savefig("economy_explore_asset.png")  # Saves the figure to a .png file
     plt.show()
     
     ###########################################################################
