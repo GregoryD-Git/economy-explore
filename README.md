@@ -42,4 +42,9 @@ progress:
     *H1-politial affilitation does not predict the overall rate of change in 
     market price over the course of a presidency
 
+## Consumer Price Index
+Gathered from the API of the US Beaureu of Labor Statistics
+
+[Visit the BLS Developers Page for access to the API](https://www.bls.gov/developers/home.htm)
+
 
