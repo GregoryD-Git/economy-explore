@@ -12,7 +12,7 @@ import extract_asset
 import get_CPI_Udata 
 
 # function to plat data
-def plot_column(ax, x, y, xlabel, ylabel, line_color, legend_label):
+def plot_column(ax, x, y, xlabel, ylabel, line_color, legend_label, width):
     # Specify color pallate suitable for people with colorblindness
     colorblind_palette = {
         "Blue": "#377eb8",
@@ -32,7 +32,10 @@ def plot_column(ax, x, y, xlabel, ylabel, line_color, legend_label):
     
     # plot parameters
     use_color = colorblind_palette[line_color]
-    ax.plot(x, y, color = use_color, label = legend_label)
+    ax.plot(x, y, 
+            color = use_color, 
+            label = legend_label,
+            linewidth = width)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.legend()
@@ -65,9 +68,17 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
         x_days = x_trim.dt.days.astype(str) + ' days'
         x = [day for day in range(0,len(x_days))]
         y = asset_df[asset_df['Term_name'] == term_names[i]][f'{asset} Indexed'].values
-        plot_column(ax, x, y[:x[-1]+1], x_label, y_label, color_list[i], legend_label)
+        width = 1
+        if i == len(term_names)-1:
+            width = 3
+        plot_column(ax, x, y[:x[-1]+1], 
+                    x_label, 
+                    y_label, 
+                    color_list[i], 
+                    legend_label,
+                    width)
     
-    plt.savefig("economy-explore_asset.png")  # Saves the figure to a .png file
+    plt.savefig("economy_explore_asset.png")  # Saves the figure to a .png file
     plt.show()
     
     ###########################################################################
