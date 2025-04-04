@@ -1,6 +1,64 @@
-+-------------+------+----------+---------+-----------+
-|  series id  | year |  period  |  value  | footnotes |
-+-------------+------+----------+---------+-----------+
-| CUUR0000SA0 | 2025 | February | 319.082 |           |
-| CUUR0000SA0 | 2025 | January  | 317.671 |           |
-+-------------+------+----------+---------+-----------+
++-------------+------+-----------+---------+-----------+
+|  series id  | year |   period  |  value  | footnotes |
++-------------+------+-----------+---------+-----------+
+| CUUR0000SA0 | 2021 |  December | 278.802 |           |
+| CUUR0000SA0 | 2021 |  November | 277.948 |           |
+| CUUR0000SA0 | 2021 |  October  | 276.589 |           |
+| CUUR0000SA0 | 2021 | September | 274.310 |           |
+| CUUR0000SA0 | 2021 |   August  | 273.567 |           |
+| CUUR0000SA0 | 2021 |    July   | 273.003 |           |
+| CUUR0000SA0 | 2021 |    June   | 271.696 |           |
+| CUUR0000SA0 | 2021 |    May    | 269.195 |           |
+| CUUR0000SA0 | 2021 |   April   | 267.054 |           |
+| CUUR0000SA0 | 2021 |   March   | 264.877 |           |
+| CUUR0000SA0 | 2021 |  February | 263.014 |           |
+| CUUR0000SA0 | 2021 |  January  | 261.582 |           |
+| CUUR0000SA0 | 2020 |  December | 260.474 |           |
+| CUUR0000SA0 | 2020 |  November | 260.229 |           |
+| CUUR0000SA0 | 2020 |  October  | 260.388 |           |
+| CUUR0000SA0 | 2020 | September | 260.280 |           |
+| CUUR0000SA0 | 2020 |   August  | 259.918 |           |
+| CUUR0000SA0 | 2020 |    July   | 259.101 |           |
+| CUUR0000SA0 | 2020 |    June   | 257.797 |           |
+| CUUR0000SA0 | 2020 |    May    | 256.394 |           |
+| CUUR0000SA0 | 2020 |   April   | 256.389 |           |
+| CUUR0000SA0 | 2020 |   March   | 258.115 |           |
+| CUUR0000SA0 | 2020 |  February | 258.678 |           |
+| CUUR0000SA0 | 2020 |  January  | 257.971 |           |
+| CUUR0000SA0 | 2019 |  December | 256.974 |           |
+| CUUR0000SA0 | 2019 |  November | 257.208 |           |
+| CUUR0000SA0 | 2019 |  October  | 257.346 |           |
+| CUUR0000SA0 | 2019 | September | 256.759 |           |
+| CUUR0000SA0 | 2019 |   August  | 256.558 |           |
+| CUUR0000SA0 | 2019 |    July   | 256.571 |           |
+| CUUR0000SA0 | 2019 |    June   | 256.143 |           |
+| CUUR0000SA0 | 2019 |    May    | 256.092 |           |
+| CUUR0000SA0 | 2019 |   April   | 255.548 |           |
+| CUUR0000SA0 | 2019 |   March   | 254.202 |           |
+| CUUR0000SA0 | 2019 |  February | 252.776 |           |
+| CUUR0000SA0 | 2019 |  January  | 251.712 |           |
+| CUUR0000SA0 | 2018 |  December | 251.233 |           |
+| CUUR0000SA0 | 2018 |  November | 252.038 |           |
+| CUUR0000SA0 | 2018 |  October  | 252.885 |           |
+| CUUR0000SA0 | 2018 | September | 252.439 |           |
+| CUUR0000SA0 | 2018 |   August  | 252.146 |           |
+| CUUR0000SA0 | 2018 |    July   | 252.006 |           |
+| CUUR0000SA0 | 2018 |    June   | 251.989 |           |
+| CUUR0000SA0 | 2018 |    May    | 251.588 |           |
+| CUUR0000SA0 | 2018 |   April   | 250.546 |           |
+| CUUR0000SA0 | 2018 |   March   | 249.554 |           |
+| CUUR0000SA0 | 2018 |  February | 248.991 |           |
+| CUUR0000SA0 | 2018 |  January  | 247.867 |           |
+| CUUR0000SA0 | 2017 |  December | 246.524 |           |
+| CUUR0000SA0 | 2017 |  November | 246.669 |           |
+| CUUR0000SA0 | 2017 |  October  | 246.663 |           |
+| CUUR0000SA0 | 2017 | September | 246.819 |           |
+| CUUR0000SA0 | 2017 |   August  | 245.519 |           |
+| CUUR0000SA0 | 2017 |    July   | 244.786 |           |
+| CUUR0000SA0 | 2017 |    June   | 244.955 |           |
+| CUUR0000SA0 | 2017 |    May    | 244.733 |           |
+| CUUR0000SA0 | 2017 |   April   | 244.524 |           |
+| CUUR0000SA0 | 2017 |   March   | 243.801 |           |
+| CUUR0000SA0 | 2017 |  February | 243.603 |           |
+| CUUR0000SA0 | 2017 |  January  | 242.839 |           |
++-------------+------+-----------+---------+-----------+
