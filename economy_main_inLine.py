@@ -21,7 +21,7 @@ import prettytable
 
 ##################################### Plot Function ###########################
 # function to plat data
-def plot_column(ax, x, y, xlabel, ylabel, line_color, legend_label, width):
+def plot_column(ax, x, y, my_title, xlabel, ylabel, line_color, legend_label, width):
     # Specify color pallate suitable for people with colorblindness
     colorblind_palette = {
             "light_green":  "#CCFF99",
@@ -42,6 +42,7 @@ def plot_column(ax, x, y, xlabel, ylabel, line_color, legend_label, width):
     ax.set_ylabel(ylabel)
     ax.legend()
     ax.grid(True)
+    plt.title(my_title)
 
 ################################### Stock Market Data #########################
 
@@ -151,9 +152,10 @@ def get_CPI(start_terms, end_terms):
             
                 df = pd.DataFrame(rows)
             CPI_df = pd.concat([CPI_df, df], ignore_index=True, axis=0)
+            
             # Export to a .csv file
-            CPI_df.to_csv(f'{seriesId}_CPI_file.csv', index=False)
-
+            # CPI_df.to_csv(f'{seriesId}_CPI_file.csv', index=False)
+        return CPI_df
         # output = open(seriesId + '.txt','w')
         # output.write (x.get_string())
         # output.close()
@@ -179,7 +181,8 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
     # Create a figure and axes
     fig, ax = plt.subplots(figsize=(10, 6))
     plt.style.use('tableau-colorblind10')
-
+    title = 'S&P 500 Index to First Day in Office'
+    
     for i, term_name in enumerate(term_names):
         legend_label = term_name
         # x_label = 'Work Days Since Innauguration'
@@ -193,18 +196,45 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
         if i == len(term_names)-1:
             width = 3
         plot_column(ax, x, y[:x[-1]+1], 
-                    x_label, 
-                    y_label, 
-                    color_list[i], 
-                    legend_label,
-                    width)
+                    title, x_label, y_label, 
+                    color_list[i], legend_label, width
+                    )
     
     plt.savefig("economy_explore_asset.png")  # Saves the figure to a .png file
     plt.show()
     
     ###########################################################################
     # Extract data for CPI-U
-    get_CPI_Udata.get_CPI(start_terms, end_terms)
+    # using separate function
+    # get_CPI_Udata.get_CPI(start_terms, end_terms)
+    
+    # using function in this script
+    CPI_df = get_CPI(start_terms, end_terms)
+    
+    # Create a figure and axes
+    fig, ax = plt.subplots(figsize=(10, 6))
+    plt.style.use('tableau-colorblind10')
+    title = 'Consumer Price Index Scaled to First Day in Office'
+    
+    for i, term_name in enumerate(term_names):
+        legend_label = term_name
+        # x_label = 'Work Days Since Innauguration'
+        # y_label = '% Indexed to Inauguration Day'
+        x_data = asset_df[asset_df['Term_name'] == term_names[i]]['Date'] - asset_df[asset_df['Term_name'] == term_names[i]]['Date'].iloc[0]
+        x_trim = x_data[x_data < f'{days_out} days 00:00:00']
+        x_days = x_trim.dt.days.astype(str) + ' days'
+        x = [day for day in range(0,len(x_days))]
+        y = asset_df[asset_df['Term_name'] == term_names[i]][f'{asset} Indexed'].values
+        width = 1
+        if i == len(term_names)-1:
+            width = 3
+        plot_column(ax, x, y[:x[-1]+1], 
+                    title, x_label, y_label, 
+                    color_list[i], legend_label, width
+                    )
+    
+    plt.savefig("economy_explore_asset.png")  # Saves the figure to a .png file
+    plt.show()
     
 if __name__ == "__main__":
     # set input parameters
