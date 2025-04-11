@@ -44,24 +44,25 @@ def plot_column(ax, x, y, xlabel, ylabel, line_color, legend_label, width):
     ax.grid(True)
 
 ################################### Stock Market Data #########################
-# Stock data presentation
-#     - Looking at the closing price of the S&P500 over the course of a presidency 
-#     can help understand how the market is affected by presidential policy
-#     - The S&P500 is considered an index market for the general state of the 
-#     market as a whole
-#     - Tracking the markets closing costs over time, indexed to inauguration day
-#     can help to understand how the market changes over time
-    
-#     *analysis ideas???
-#     - Determine how presidential political affiliation impacts overall market
-#     progress: 
-#         NULL HYPOTHESES
-#         *H0-political affiliation does not predict overall change in market price
-#         from beginning to end of a presidential term
-#         *H1-politial affilitation does not predict the overall rate of change in 
-#         market price over the course of a presidency
-        
+
 def get_asset(days_out, assets, term_names, start_terms, end_terms):
+    # Stock data presentation
+    #     - Looking at the closing price of the S&P500 over the course of a presidency 
+    #     can help understand how the market is affected by presidential policy
+    #     - The S&P500 is considered an index market for the general state of the 
+    #     market as a whole
+    #     - Tracking the markets closing costs over time, indexed to inauguration day
+    #     can help to understand how the market changes over time
+        
+    #     *analysis ideas???
+    #     - Determine how presidential political affiliation impacts overall market
+    #     progress: 
+    #         NULL HYPOTHESES
+    #         *H0-political affiliation does not predict overall change in market price
+    #         from beginning to end of a presidential term
+    #         *H1-politial affilitation does not predict the overall rate of change in 
+    #         market price over the course of a presidency
+    
     # Specify how many days out from inauguration we want to see stock data
     # days_out = 100 # number of work days in a year
     
@@ -97,28 +98,26 @@ def get_asset(days_out, assets, term_names, start_terms, end_terms):
     return asset_dict
 
 ############################## Consumer Price Index Data ######################
-# CUUR0000SA0: This refers to the CPI-U (Consumer Price Index for All Urban 
-# Consumers) for all items in the U.S. city average. The "U" indicates that the 
-# data is not seasonally adjusted.
-
-# For seasonally adjusted CPI data from the BLS, you should use series tags 
-# where the third character is "S" (indicating seasonally adjusted data). 
-# For example: CUUS0000SA0: Seasonally adjusted CPI-U 
-# (Consumer Price Index for All Urban Consumers) for all items in the U.S. 
-# city average.
-
-# SUUR0000SA0: This represents the Chained CPI-U (Consumer Price Index for All 
-# Urban Consumers) for all items in the U.S. city average. The "U" also indicates 
-# that the data is not seasonally adjusted.
-
-# month list
-months = ['January','February','March',
+def get_CPI(start_terms, end_terms):
+    # CUUR0000SA0: This refers to the CPI-U (Consumer Price Index for All Urban 
+    # Consumers) for all items in the U.S. city average. The "U" indicates that the 
+    # data is not seasonally adjusted.
+    
+    # For seasonally adjusted CPI data from the BLS, you should use series tags 
+    # where the third character is "S" (indicating seasonally adjusted data). 
+    # For example: CUUS0000SA0: Seasonally adjusted CPI-U 
+    # (Consumer Price Index for All Urban Consumers) for all items in the U.S. 
+    # city average.
+    
+    # SUUR0000SA0: This represents the Chained CPI-U (Consumer Price Index for All 
+    # Urban Consumers) for all items in the U.S. city average. The "U" also indicates 
+    # that the data is not seasonally adjusted.
+    
+    # month list
+    months = ['January','February','March',
              'April','May','June','July',
              'August','September','October',
              'November','December']
-
-def get_CPI(start_terms, end_terms):
-    
     
     for i, start_date in enumerate(start_terms):
         start_year = start_date.split('-')[0]
@@ -159,7 +158,6 @@ def get_CPI(start_terms, end_terms):
         # output.write (x.get_string())
         # output.close()
         
-
 def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label, y_label):
     ###########################################################################
     # Extract data for the S&P500
@@ -173,11 +171,15 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
     for asset in asset_dict.keys():
         asset_df = asset_dict[asset]
     # plot color list
-    color_list = ['Light Red','Blue','Red']
+    color_list = ["light_green","dark_green",
+                "light_blue",
+                "light_red","dark_red"
+                ]
     
     # Create a figure and axes
     fig, ax = plt.subplots(figsize=(10, 6))
-    
+    plt.style.use('tableau-colorblind10')
+
     for i, term_name in enumerate(term_names):
         legend_label = term_name
         # x_label = 'Work Days Since Innauguration'
@@ -202,40 +204,29 @@ def economy_track(days_out, assets, term_names, start_terms, end_terms, x_label,
     
     ###########################################################################
     # Extract data for CPI-U
-    
     get_CPI_Udata.get_CPI(start_terms, end_terms)
-    
     
 if __name__ == "__main__":
     # set input parameters
     today = dt.today()
     today_str = today.strftime('%Y-%m-%d')
-    term_names =['obama1', 
-                 'obama2', 
-                 'trump1', 
-                 'biden', 
-                 'trump2']
-    start_terms = ['2009-01-20',
-                   '2013-01-20',
-                   '2017-01-20',
-                   '2021-01-20',
-                   '2025-01-20']
-    end_terms = ['2013-01-20',
-                 '2017-01-20',
-                 '2021-01-20',
-                 '2025-01-20',
-                 today_str]
+    
+    ############################### Asset figure ##############################
+    # specify terms of interest
+    term_names =['obama1','obama2','trump1','biden','trump2']
+    start_terms = ['2009-01-20','2013-01-20','2017-01-20','2021-01-20','2025-01-20']
+    end_terms = ['2013-01-20','2017-01-20','2021-01-20','2025-01-20',today_str]
+    
+    # specify asset of interest
     assets = ['^GSPC']
+    
+    # plotting details
     x_label = 'Work Days Since Innauguration'
     y_label = '% Indexed to Inauguration Day'
-    days_out = 100
+    days_out = 400
     
     # call main function
-    economy_track(days_out, 
-                  assets, 
-                  term_names, 
-                  start_terms, 
-                  end_terms, 
-                  x_label, 
-                  y_label)
+    economy_track(days_out, assets, term_names, 
+                  start_terms, end_terms, 
+                  x_label, y_label)
     # extract_asset()
