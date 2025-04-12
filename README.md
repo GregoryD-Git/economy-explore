@@ -91,7 +91,7 @@ The figure is saved to png format picture for later use
 </pre>
 
 ### S&P500 Indexed to First Day in Office
-![Sample Plot](economy_getStockAsset.png)
+![Sample Plot](economy_S&P500byTerm.png)
 
 ### Short summary
 This graph illustrates the performance of the S&P 500, normalized to each president's first day in office, across the chosen presidential terms. It highlights trends in the market during those periods, providing a comparative perspective on economic patterns during each administration. 
