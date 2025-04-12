@@ -1,6 +1,6 @@
 <h1 style="display: flex; align-items: center;">
-  <img src=https://markdown-here.com/img/icon256.png alt="Description" width="50" height="50" style="margin-left: 10px;">
-  Economy-Explore
+  <img src="mock_stock_market_arrow.png" alt="Stock Market Ticker" width="50" height="50" style="margin-left: 10px;">
+  Economy-Explore S&P500
 </h1>
 
 **DESCRIPTION:**
@@ -93,8 +93,9 @@ The figure is saved to png format picture for later use
 ### S&P500 Indexed to First Day in Office
 ![Sample Plot](economy_S&P500byTerm.png)
 
-### Short summary
-This graph illustrates the performance of the S&P 500, normalized to each president's first day in office, across the chosen presidential terms. It highlights trends in the market during those periods, providing a comparative perspective on economic patterns during each administration. 
+## Short summary
+- This graph illustrates the performance of the S&P 500, normalized to each president's first day in office, across the chosen presidential terms.
+- It highlights trends in the market during those periods, providing a comparative perspective on economic patterns during each administration. 
 ---
 ***further analyses to come***
 - Look at overall change from beginning to end of term
