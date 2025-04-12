@@ -83,7 +83,7 @@ assets = ['^GSPC']
 x_label = 'Work Days Since Innauguration'
 y_label = '% Indexed to Inauguration Day'
 title = 'S&P 500 Scaled to First Day in Office'
-yrs = 4
+yrs = 1
 days_out = 365*yrs
 
 #################################### Scaled S&P500 ############################
