@@ -12,24 +12,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-'''
-Stock data presentation
-    - Looking at the closing price of the S&P500 over the course of a presidency 
-    can help understand how the market is affected by presidential policy
-    - The S&P500 is considered an index market for the general state of the 
-    market as a whole
-    - Tracking the markets closing costs over time, indexed to inauguration day
-    can help to understand how the market changes over time
-    
-    *analysis ideas???
-    - Determine how presidential political affiliation impacts overall market
-    progress: 
-        NULL HYPOTHESES
-        *H0-political affiliation does not predict overall change in market price
-        from beginning to end of a presidential term
-        *H1-politial affilitation does not predict the overall rate of change in 
-        market price over the course of a presidency
-'''
 def get_asset(days_out, assets, term_names, start_terms, end_terms):
     # Specify how many days out from inauguration we want to see stock data
     # days_out = 100 # number of work days in a year
