@@ -26,6 +26,7 @@ The S&P500 is the asset of choice for the following reasons
 - The S&P500 is considered an index market for the general state of the market as a whole
 - Tracking the markets closing costs over time, indexed to inauguration day can help to understand how the market changes during the course of a presidency
 
+## The code
 To use the S&P500, the python modul yfinance is used and imported via a custom written function
 <pre>
   import matplotlib.pyplot as plt
