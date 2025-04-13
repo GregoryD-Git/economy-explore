@@ -21,7 +21,7 @@ import extract_asset
 
 ##################################### Plot Function ###########################
 # function to plat data
-def plot_column(ax, x, y, my_title, xlabel, ylabel, line_color, legend_label, width):
+def plot_lineData(ax, x, y, my_title, xlabel, ylabel, line_color, legend_label, width):
     # Specify color pallate suitable for people with colorblindness
     colorblind_palette = {
             "light_green":  "#CCFF99",
@@ -44,6 +44,29 @@ def plot_column(ax, x, y, my_title, xlabel, ylabel, line_color, legend_label, wi
     ax.grid(True)
     plt.title(my_title)
     
+def plot_bar(ax, x, y, bar_colors, x_label=None, y_label=None, title=None):
+    """
+    Plots bar data on a given subplot axis.
+
+    Parameters:
+    ax (matplotlib.axes._subplots.AxesSubplot): The subplot axis to plot on.
+    x (list or array): Data for the x-axis (e.g., categories).
+    y (list or array): Data for the y-axis (e.g., bar heights).
+    x_label (str, optional): Label for the x-axis.
+    y_label (str, optional): Label for the y-axis.
+    title (str, optional): Title of the plot.
+    bar_color (str or list, optional): Color of the bars (default is 'blue').
+
+    Returns:
+    None
+    """
+    
+    ax.bar(x, y, color=bar_colors)
+    ax.set_xlabel(x_label if x_label else '')
+    ax.set_ylabel(y_label if y_label else '')
+    ax.set_title(title if title else '')
+    plt.xticks(rotation=45)  # Rotate labels by 45 degrees
+
 # Calculating max drawdown
 def calculate_max_drawdown(prices):
     # Calculate the running maximum
@@ -100,6 +123,7 @@ color_list = ["light_green","dark_green",
             "light_red","dark_red"
             ]
 
+# MAIN PLOT OF STOCK VALUES OVER TIME
 # Create a figure and axes
 fig, ax = plt.subplots()
 plt.style.use('tableau-colorblind10')
@@ -114,10 +138,60 @@ for i, term_name in enumerate(term_names):
     width = 1
     if i == len(term_names)-1:
         width = 3
-    plot_column(ax, x, y[:x[-1]+1], 
+    plot_lineData(ax, x, y[:x[-1]+1], 
                 title, x_label, y_label, 
                 color_list[i], legend_label, width
                 )
 
 plt.savefig("economy_S&P500byTerm.png")  # Saves the figure to a .png file
 plt.show()
+
+########################## Metrics of interest
+######################### Post-pre change in value ############################
+# Calculated as the final value of the asset minus the first value
+# Create a figure and axes
+fig, ax = plt.subplots(1,3)
+plt.style.use('tableau-colorblind10')
+
+term_list = []
+delta_list = []
+
+for i, term_name in enumerate(term_names):
+    legend_label = term_name
+    # x_data = asset_df[asset_df['Term_name'] == term_names[i]]['Date'] - asset_df[asset_df['Term_name'] == term_names[i]]['Date'].iloc[0]
+    # x_trim = x_data[x_data < f'{days_out} days 00:00:00']
+    # x_days = x_trim.dt.days.astype(str) + ' days'
+    # x = [day for day in range(0,len(x_days))]
+    y = asset_df[asset_df['Term_name'] == term_names[i]][f'{asset} Indexed'].values
+    term_list.append(term_name)
+    delta_list.append(float(y[-1] - y[0]))
+
+delta_dict = {'terms': term_list,
+             'asset delta': delta_list}
+diff_df = pd.DataFrame(delta_dict)
+
+x = diff_df['terms']
+y = diff_df['asset delta']
+# Specify color pallate suitable for people with colorblindness
+colors = ["#CCFF99", "#009900",
+          "#FF9999",
+          "#99CCFF",
+          "#CC0000"
+          ]
+
+plot_bar(ax[0], x, y,
+        colors,
+        x_label='Administration', 
+        y_label='% Change Since Inauguration', 
+        title='Change in S&P500')
+
+plt.show()
+plt.savefig("economy_S&P500_pre-post.png")  # Saves the figure to a .png file
+
+########################## Market volatility ##################################
+# Calculated as the mean squared error of the residuals from the data linear model
+
+########################## Maximum drawdown ###################################
+
+########################## Sharpe Ratio #######################################
+
