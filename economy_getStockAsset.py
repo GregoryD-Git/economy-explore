@@ -65,7 +65,6 @@ def plot_bar(ax, x, y, bar_colors, x_label=None, y_label=None, title=None, xtick
 # --------------------------------- Data metric funcitons ---------------------
 # MSE from linear fit
 def fit_lm(X, y):
-    
     # Initialize the Linear Regression model
     model = LinearRegression()
     
@@ -75,12 +74,8 @@ def fit_lm(X, y):
     # Predict the target variable using the test set
     y_pred = model.predict(X)
     
-    # Calculate residuals (difference between actual and predicted values)
-    # residuals = y - y_pred
-    
     # Evaluate the model's performance
     rmse = np.sqrt(mean_squared_error(y, y_pred))
-    # r2 = r2_score(y, y_pred)
     
     return rmse, y_pred
     
@@ -268,58 +263,5 @@ fig1.savefig('economy_S&P500byTerm.png')  # Saves the figure to a .png file
 
 # Pre-post S&P500 from linear model
 # fig2.show()
-fig2.savefig('economy_S&P500_pre-post.png')  # Saves the figure to a .png file
-
-########################## Metrics of interest
-######################### Post-pre change in value ############################
-# Calculated as the final value of the asset minus the first value
-# Create a figure and axes
-# fig2, ax2 = plt.subplots(1,3)
-# plt.style.use('tableau-colorblind10')
-
-# term_list = []
-# delta_list = []
-
-# for i, term_name in enumerate(term_names):
-#     legend_label = term_name
-#     x_data = asset_df[asset_df['Term_name'] == term_names[i]]['Date'] - asset_df[asset_df['Term_name'] == term_names[i]]['Date'].iloc[0]
-#     x_trim = x_data[x_data < f'{days_out} days 00:00:00']
-#     x_days = x_trim.dt.days.astype(str) + ' days'
-#     # Using the 'x' values allows the trimming of the 'y' data such that the 
-#     # end of the period intended is used as the 'last day'
-#     x = [day for day in range(0,len(x_days))]
-#     y_full = asset_df[asset_df['Term_name'] == term_names[i]][f'{asset} Indexed'].values
-#     # y_full trimmed to the 'days_out' index
-#     y = y_full[:x[-1]+1]
-#     term_list.append(term_name)
-#     delta_list.append(float(y[-1] - y[0]))
-
-# delta_dict = {'terms': term_list,
-#              'asset delta': delta_list}
-# analysis_df = pd.DataFrame(delta_dict)
-
-# x = analysis_df['terms']
-# y = analysis_df['asset delta']
-# # Specify color pallate suitable for people with colorblindness
-# colors = ['#CCFF99', '#009900',
-#           '#FF9999',
-#           '#99CCFF',
-#           '#CC0000'
-#           ]
-
-# plot_bar(ax[0], x, y,
-#         colors,
-#         x_label='Administration', 
-#         y_label='% Change', 
-#         title='Change in S&P500')
-
-# plt.show()
-# plt.savefig('economy_S&P500_pre-post.png')  # Saves the figure to a .png file
-
-########################## Market volatility ##################################
-# Calculated as the mean squared error of the residuals from the data linear model
-
-########################## Maximum drawdown ###################################
-
-########################## Sharpe Ratio #######################################
+fig2.savefig('economy_S&P500_key_market_indicators.png')  # Saves the figure to a .png file
 
