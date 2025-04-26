@@ -29,9 +29,50 @@ The S&P500 is the asset of choice for the following reasons
 ## The code
 To use the S&P500, the python modul yfinance is used and imported via a custom written function
 <pre>
-  import matplotlib.pyplot as plt
-  from datetime import datetime as dt
-  import extract_asset
+  import riskfolio as rp
+import yfinance as yf
+import pandas as pd
+# import matplotlib.pyplot as plt
+import numpy as np
+from datetime import datetime
+
+def get_asset(days_out, assets, term_names, start_terms, end_terms):
+    # Specify how many days out from inauguration we want to see stock data
+    # days_out = 100 # number of work days in a year
+    
+    # initialize dataframe dictionary
+    asset_dict = {}
+    
+    for asset in assets:
+        # initialize dataframe
+        asset_df = pd.DataFrame()
+        
+        # collect and format asset data
+        for i, start_term in enumerate(start_terms):
+            data = yf.download(asset, start= start_term, end= end_terms[i])
+            data = data.loc[:,'Close']
+            # add list of whos term it is to the dataframe
+            names = [term_names[i] for name in range(0,len(data.index))]
+            data['Term_name'] = names
+            
+            # extract column of S&P500
+            # columns_used = ['^GSPC']
+            columns_used = [asset]
+            data[f'{asset} Indexed'] = (data[columns_used] / data[columns_used].iloc[0]) * 100
+            
+            # concatenate dataframes row over row
+            asset_df = pd.concat([asset_df, data], axis=0)
+        
+        # reset index so dates are a data column
+        asset_df.reset_index(inplace=True)
+        
+        # aapend asset dataframe to asset dictionary
+        asset_dict[asset] = asset_df
+    
+    return asset_dict
+    
+if __name__ == "__main__":
+    get_asset()
 </pre>
 A plot function is set to create a figure using matplotlib
 <pre>
@@ -92,17 +133,84 @@ The figure is saved to png format picture for later use
 </pre>
 
 ### S&P500 Indexed to First Day in Office
-![Sample Plot](economy_S&P500byTerm.png)
+![Scaled Market Performance](economy_S&P500byTerm.png)
 
 ## Short summary
-- This graph illustrates the performance of the S&P 500, normalized to each president's first day in office, across the chosen presidential terms.
-- It highlights trends in the market during those periods, providing a comparative perspective on economic patterns during each administration. 
----
-***further analyses to come***
-- Look at overall change from beginning to end of term
-- Look at market volatility for each term (std)
-- Maximum drawdown - largest peak to trough drop in the index to understand risk of loss
-- Sharpe ratio - risk-adjusted performance comparing returns to volatility - evaluating whether risk is justified
+- This graph illustrates the performance of the S&P 500, normalized to each president's first day in office, across the chosen presidential terms and time period.
+- It highlights trends in the market during those periods relative to the start of the admnistration, providing a comparative perspective on economic patterns and presidential policy during the chosen period. 
+
+## Summary plot of key indicators of market performance and risk
+The next figure shows four panels of data summarized here
+
+**MARKET ASSESSMENT**
+> 1. OVERALL CHANGE: The first plot shows the overall change in the market from the beginning to the end of the period assessed. A linear model was fit to the data using the '''sklearn linear regression''' module to to characterize the general trajectory of the market during each period. A linear model was used for simplicity and to provide a characterization of the trend independent of short-term change in markets. A higher value indicates a larger rise in market value.
+> 2. MARKET VOLATILITY: Measured here as the root mean square error. Higher values indicate greater volatility. Volatility helps investors understand potential price fluctuations and risks. High volatility may signal a need to adjust asset allocations.
+> 3. MAXIMUM DRAWDOWN: Measures the largest loss (in percentage terms) that an asset experiences from its peak to its trough before a recovery to a new peak occurs. It is thought to demonstrate the worst-case scenario for an investor during a specific period. This is particularly useful for understanding the risk associated with an investment. Smaller values closer to zero are considered better.
+> 4. SHARPE-RATIO: The Sharpe Ratio is a measure of risk-adjusted return. It evaluates how much return an investment generates relative to the amount of risk (volatility) it takes on. Higher positive values are considered better, while lower or negative values are riskier.
+
+## Overall change and market volatility
+Shown below is the function used to generate the linear model and capture the post to pre period change and the variation in the market
+<pre>
+  def fit_lm(X, y):
+    # Initialize the Linear Regression model
+    model = LinearRegression()
+    
+    # Fit the model with training data
+    model.fit(X, y)
+    
+    # Predict the target variable using the test set
+    y_pred = model.predict(X)
+    
+    # Evaluate the model's performance
+    rmse = np.sqrt(mean_squared_error(y, y_pred))
+    
+    return rmse, y_pred
+</pre>
+
+## Maximum drawdown
+The maximum drawdown calculates the percentage drop from the highest point to the lowest point during a given time frame
+<pre>
+  def calculate_mdraw_listdown(prices):
+    # Calculate the running maximum
+    # running_max = prices.cummax()
+    running_max = np.maximum.accumulate(prices)
+    
+    # Calculate the drawdown
+    drawdown = (prices - running_max) / running_max
+    # Find the maximum drawdown
+    mdraw_listdown = 100 * drawdown.min()
+    return mdraw_listdown
+</pre>
+
+## Sharpe ratio
+The Sharpe Ratio is a measure of risk-adjusted return. It evaluates how much return an investment (like the S&P500) generates relative to the amount of risk (volatility) it takes on.
+<pre>
+  def calculate_sharpe_ratio(prices, days):
+    # Convert prices to returns
+    price_series = pd.Series(prices)
+    daily_returns = price_series.pct_change().dropna()
+    # daily_returns = prices[1:] / prices[:-1] - 1
+    
+    annual_risk_free_rate = 0.03
+    
+    # convert annual risk-free rate to daily
+    daily_rate = (1 + annual_risk_free_rate) ** (1/252) - 1
+    
+    span_risk_free_rate = (1 + daily_rate) ** days - 1
+    
+    # Excess returns (returns above the risk-free rate)
+    excess_returns = daily_returns - span_risk_free_rate
+    
+    # Calculate Sharpe Ratio
+    sharpe_ratio = excess_returns.mean() / excess_returns.std()
+    
+    # trading_days = len(prices)
+    # annualized_sharpe_ratio = sharpe_ratio * np.sqrt(trading_days)
+    return sharpe_ratio
+</pre>
+
+### Key Indicators of Market Performance
+![Key Market Indicators](economy_S&P500_key_market_indicators.png)
 
 ## Consumer Price Index
 Gathered from the API of the US Beaureu of Labor Statistics
