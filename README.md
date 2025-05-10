@@ -139,11 +139,11 @@ The figure is saved to png format picture for later use
 - This graph illustrates the performance of the S&P 500, normalized to each president's first day in office, across the chosen presidential terms and time period.
 - It highlights trends in the market during those periods relative to the start of the admnistration, providing a comparative perspective on economic patterns and presidential policy during the chosen period. 
 
-## Summary plot of key indicators of market performance and risk
-The next figure shows four panels of data summarized here
+# Key indicators of market performance and risk
+The next figure shows four panels of data, summarized below.
 
 **MARKET ASSESSMENT**
-> 1. OVERALL CHANGE: The first plot shows the overall change in the market from the beginning to the end of the period assessed. A linear model was fit to the data using the '''sklearn linear regression''' module to to characterize the general trajectory of the market during each period. A linear model was used for simplicity and to provide a characterization of the trend independent of short-term change in markets. A higher value indicates a larger rise in market value.
+> 1. OVERALL CHANGE: The first plot shows the overall change in the market from the beginning to the end of the period assessed. A linear model was fit to the data using the '''sklearn linear regression''' module to characterize the general trajectory of the market during each period. A linear model was used for simplicity and to provide a characterization of the trend independent of short-term change in markets. A higher value indicates a larger rise in market value.
 > 2. MARKET VOLATILITY: Measured here as the root mean square error. Higher values indicate greater volatility. Volatility helps investors understand potential price fluctuations and risks. High volatility may signal a need to adjust asset allocations.
 > 3. MAXIMUM DRAWDOWN: Measures the largest loss (in percentage terms) that an asset experiences from its peak to its trough before a recovery to a new peak occurs. It is thought to demonstrate the worst-case scenario for an investor during a specific period. This is particularly useful for understanding the risk associated with an investment. Smaller values closer to zero are considered better.
 > 4. SHARPE-RATIO: The Sharpe Ratio is a measure of risk-adjusted return. It evaluates how much return an investment generates relative to the amount of risk (volatility) it takes on. Higher positive values are considered better, while lower or negative values are riskier.
@@ -212,9 +212,9 @@ The Sharpe Ratio is a measure of risk-adjusted return. It evaluates how much ret
 ### Key Indicators of Market Performance
 ![Key Market Indicators](economy_S&P500_key_market_indicators.png)
 
-## Consumer Price Index
-Gathered from the API of the US Beaureu of Labor Statistics
-
-[Visit the BLS Developers Page for access to the API](https://www.bls.gov/developers/home.htm)
-
+## Short Summary
+- The first subplot the overall change in the S&P500 for the period investigated. Higher values are considered better, while negative values indicate a net negative change in market value.
+- The next subplot demonstrates market volatility, where larger values indicate less stability about the general trend identified in the overall change. Less stability suggests a market where investment is riskier.
+- Third is the maximum drawdown, a measure of the greatest drop in market value over the interval of interest. Lower values indicate larger drops in market value and suggest greater risk to investment.
+- Last is the Sharpe-ratio, where the lower the value, the riskier the market. 
 
